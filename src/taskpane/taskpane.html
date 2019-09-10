@@ -1,0 +1,63 @@
+<!-- Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT License. -->
+<!-- This file shows how to design a first-run page that provides a welcome screen to the user about the features of the add-in. -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Contoso Task Pane Add-in</title>
+
+    <!-- Office JavaScript API -->
+    <script type="text/javascript" src="https://unpkg.com/@microsoft/office-js@1.1.11-operational.16/dist/office.experimental.debug.js"></script>
+    <script type="text/javascript">
+        function loadScript(url){
+
+            var script = document.createElement("script")
+            script.type = "text/javascript";
+
+            if (script.readyState){  //IE
+                script.onreadystatechange = function(){
+                    if (script.readyState == "loaded" ||
+                            script.readyState == "complete"){
+                        script.onreadystatechange = null;
+                    }
+                };
+            }
+
+            script.src = url;
+            document.getElementsByTagName("head")[0].appendChild(script);
+        }
+
+        Office.initialize = function() {
+            loadScript('/assets/sync-api.js');
+        };
+    </script>
+
+    <!-- For more information on Office UI Fabric, visit https://developer.microsoft.com/fabric. -->
+    <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css"/>
+
+    <!-- Template styles -->
+    <link href="taskpane.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body class="ms-font">
+    <div id="outer">
+        <div id="main">
+            <select id="sample-list"></select>
+            <div id="editor"></div>
+            <div>
+                <button id="run">Run</button>
+                <button id="clear">Clear</button>
+                <input type="checkbox" id="transpile" name="transpile">
+                <label for="transpile">Show Transpiled Code</label>
+            </div>
+            <div id="output">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
