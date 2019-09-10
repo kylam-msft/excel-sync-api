@@ -1,9 +1,9 @@
 {
-  "name": "office-addin-taskpane",
+  "name": "excel-sync-api",
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/OfficeDev/Office-Addin-TaskPane.git"
+    "url": "https://github.com/kylam-msft/excel-sync-api.git"
   },
   "license": "MIT",
   "config": {
@@ -16,11 +16,6 @@
     "build:dev": "webpack --mode development --https false",
     "build-dev": "webpack --mode development --https false && echo . && echo . && echo . && echo Please use 'build:dev' instead of 'build-dev'.",
     "dev-server": "webpack-dev-server --mode development",
-    "start": "office-addin-debugging start manifest.xml",
-    "start:desktop": "office-addin-debugging start manifest.xml desktop",
-    "start:web": "office-addin-debugging start manifest.xml web",
-    "stop": "office-addin-debugging stop manifest.xml",
-    "validate": "office-addin-manifest validate manifest.xml",
     "watch": "webpack --mode development --watch"
   },
   "dependencies": {
