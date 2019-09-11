@@ -94,12 +94,48 @@
   return this.fill;
 };
 
+(ExcelOp.RangeFormat.prototype as any).getFont = function() {
+  return this.font;
+};
+
 (ExcelOp.RangeFill.prototype as any).getColor = function() {
   return this.retrieve("color").then(({ color }) => color);
 };
 
 (ExcelOp.RangeFill.prototype as any).setColor = function(color: string) {
   return this.update({ color });
+};
+
+(ExcelOp.RangeFont.prototype as any).getBold = function() {
+  return this.retrieve("bold").then(({ bold }) => bold);
+};
+
+(ExcelOp.RangeFont.prototype as any).setBold = function(bold: boolean) {
+  return this.update({ bold });
+};
+
+(ExcelOp.RangeFont.prototype as any).getColor = function() {
+  return this.retrieve("color").then(({ color }) => color);
+};
+
+(ExcelOp.RangeFont.prototype as any).setColor = function(color: string) {
+  return this.update({ color });
+};
+
+(ExcelOp.RangeFont.prototype as any).getName = function() {
+  return this.retrieve("name").then(({ name }) => name);
+};
+
+(ExcelOp.RangeFont.prototype as any).setName = function(name: string) {
+  return this.update({ name });
+};
+
+(ExcelOp.RangeFont.prototype as any).getSize = function() {
+  return this.retrieve("size").then(({ size }) => size);
+};
+
+(ExcelOp.RangeFont.prototype as any).setSize = function(size: string) {
+  return this.update({ size });
 };
 
 namespace ExcelScript {

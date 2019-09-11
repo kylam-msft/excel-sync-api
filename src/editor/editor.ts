@@ -10,6 +10,7 @@ monaco.languages.typescript.typescriptDefaults.addExtraLib(`
     const workbook: Workbook;
 
     interface Workbook {
+      getSelectedRange(): Range;
       getWorksheets(): Worksheet [];
       getWorksheet(id: string): Worksheet;
       addWorksheet(id: string): Worksheet;
@@ -50,17 +51,29 @@ monaco.languages.typescript.typescriptDefaults.addExtraLib(`
       getResizedRange(rowCount: number, columnCount: number): Range;
       getCell(rowIndex: number, columnIndex: number): Range;
       getColumnCount(): number;
-      getFormat(): Format
+      getFormat(): Format;
     }
 
     interface Format {
       autofitColumns(): string[][];
       getFill(): Fill;
+      getFont(): Font;
     }
 
     interface Fill {
       getColor(): string;
       setColor(color: string): void;
+    }
+
+    interface Font {
+      getBold(): boolean;
+      setBold(bold: boolean): void;
+      getColor(): string;
+      setColor(color: string): void;
+      getName(): string;
+      setName(name: string): void;
+      getSize(): number;
+      setSize(size: number): void;
     }
   }
 `);

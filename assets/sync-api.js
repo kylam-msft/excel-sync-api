@@ -97,6 +97,9 @@ ExcelOp.Range.prototype.getFormat = function () {
 ExcelOp.RangeFormat.prototype.getFill = function () {
     return this.fill;
 };
+ExcelOp.RangeFormat.prototype.getFont = function () {
+    return this.font;
+};
 ExcelOp.RangeFill.prototype.getColor = function () {
     return this.retrieve("color").then(function (_a) {
         var color = _a.color;
@@ -105,6 +108,42 @@ ExcelOp.RangeFill.prototype.getColor = function () {
 };
 ExcelOp.RangeFill.prototype.setColor = function (color) {
     return this.update({ color: color });
+};
+ExcelOp.RangeFont.prototype.getBold = function () {
+    return this.retrieve("bold").then(function (_a) {
+        var bold = _a.bold;
+        return bold;
+    });
+};
+ExcelOp.RangeFont.prototype.setBold = function (bold) {
+    return this.update({ bold: bold });
+};
+ExcelOp.RangeFont.prototype.getColor = function () {
+    return this.retrieve("color").then(function (_a) {
+        var color = _a.color;
+        return color;
+    });
+};
+ExcelOp.RangeFont.prototype.setColor = function (color) {
+    return this.update({ color: color });
+};
+ExcelOp.RangeFont.prototype.getName = function () {
+    return this.retrieve("name").then(function (_a) {
+        var name = _a.name;
+        return name;
+    });
+};
+ExcelOp.RangeFont.prototype.setName = function (name) {
+    return this.update({ name: name });
+};
+ExcelOp.RangeFont.prototype.getSize = function () {
+    return this.retrieve("size").then(function (_a) {
+        var size = _a.size;
+        return size;
+    });
+};
+ExcelOp.RangeFont.prototype.setSize = function (size) {
+    return this.update({ size: size });
 };
 var ExcelScript;
 (function (ExcelScript) {

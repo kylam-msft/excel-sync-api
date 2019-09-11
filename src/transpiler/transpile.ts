@@ -98,16 +98,22 @@ export default function transpile(code: string, options: ts.CompilerOptions = {}
   }
 
   /* tslint:disable-next-line */
-  eval(outputs[1].text).then(() => {
-    if (showDebugInfo) {
-      setLogColor("green");
-      const runEnd = window.performance.now();
-      const runTime = runEnd - runStart;
-      console.log(`Total running time: ${runTime.toFixed(4)} ms`);
-      (OfficeExtension as any).CoreUtility._endRequestCount("Total requests");
+  eval(outputs[1].text)
+    .then(() => {
+      if (showDebugInfo) {
+        setLogColor("green");
+        const runEnd = window.performance.now();
+        const runTime = runEnd - runStart;
+        console.log(`Total running time: ${runTime.toFixed(4)} ms`);
+        (OfficeExtension as any).CoreUtility._endRequestCount("Total requests");
+        setLogColor("black");
+      }
+    })
+    .catch(err => {
+      setLogColor("red");
+      console.log(`Error: ${err.message || err}`);
       setLogColor("black");
-    }
-  });
+    });
 }
 
 function wrapCodeInMain(sourceFile: ts.SourceFile): void {
