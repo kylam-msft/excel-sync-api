@@ -2,6 +2,7 @@ import * as $ from "jquery";
 import editor from "../editor/editor";
 import transpile from "../transpiler/transpile";
 import { SAMPLES } from "../util/constants";
+import { getLogColor } from "../util/logger-utils";
 
 initUI();
 
@@ -14,7 +15,9 @@ initUI();
       formattedMessage = JSON && JSON.stringify ? JSON.stringify(message) : message;
     }
 
-    const $log = $("<pre class='log-entry'>").text(formattedMessage);
+    const $log = $("<pre class='log-entry'>")
+      .text(formattedMessage)
+      .css("color", getLogColor());
     $log.appendTo($("#output"));
     $log[0].scrollIntoView();
     old(message);

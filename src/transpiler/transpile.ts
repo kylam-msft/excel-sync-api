@@ -1,7 +1,8 @@
 import * as $ from "jquery";
 import * as ts from "typescript";
-import { CompilerHost } from "./compiler-host";
 import { log } from "../util/log";
+import { setLogColor } from "../util/logger-utils";
+import { CompilerHost } from "./compiler-host";
 
 const SOURCE_FILE_NAME: string = "file.ts";
 
@@ -46,7 +47,11 @@ function getCompilerOptions(options: ts.CompilerOptions): ts.CompilerOptions {
 }
 
 export default function transpile(code: string, options: ts.CompilerOptions = {}): any {
+  const showDebugInfo = $("#debug_info").prop("checked");
+  const showTranspileInfo = $("#transpile").prop("checked");
+
   const start = window.performance.now();
+
   let sourceFile = ts.createSourceFile(SOURCE_FILE_NAME, code, ts.ScriptTarget.Latest, true);
 
   sourceFile = ts.transform(sourceFile, [addAwaitToAllCallExpressions as ts.TransformerFactory<ts.Node>])
@@ -54,12 +59,17 @@ export default function transpile(code: string, options: ts.CompilerOptions = {}
 
   addAsyncToAllFunctions(sourceFile);
 
-  if ($("#transpile").prop("checked")) {
-    log("TRANSPILED RESULT:");
+  if (showTranspileInfo) {
+    log("Transpiled code:");
     log(printSourceFile(sourceFile));
+  }
+
+  if (showDebugInfo) {
     const end = window.performance.now();
     const time = end - start;
-    log(`Transpile time: ${time.toFixed(4)} ms`);
+    setLogColor("green");
+    console.log(`Transpile time: ${time.toFixed(4)} ms`);
+    setLogColor("black");
   }
 
   wrapCodeInMain(sourceFile);
@@ -80,8 +90,24 @@ export default function transpile(code: string, options: ts.CompilerOptions = {}
 
   const emitResult: ts.EmitResult = program.emit();
   // console.log(JSON.stringify(outputs));
+
+  let runStart;
+  if (showDebugInfo) {
+    (OfficeExtension as any).CoreUtility._startRequestCount("Total requests");
+    runStart = window.performance.now();
+  }
+
   /* tslint:disable-next-line */
-  eval(outputs[1].text);
+  eval(outputs[1].text).then(() => {
+    if (showDebugInfo) {
+      setLogColor("green");
+      const runEnd = window.performance.now();
+      const runTime = runEnd - runStart;
+      console.log(`Total running time: ${runTime.toFixed(4)} ms`);
+      (OfficeExtension as any).CoreUtility._endRequestCount("Total requests");
+      setLogColor("black");
+    }
+  });
 }
 
 function wrapCodeInMain(sourceFile: ts.SourceFile): void {
