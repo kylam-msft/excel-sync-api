@@ -63,6 +63,12 @@ module.exports = async (env, options) => {
           from: "./src/taskpane/taskpane.css"
         }
       ]),
+      new CopyWebpackPlugin([
+        {
+          to: "assets",
+          from: "./assets"
+        }
+      ]),
       new HtmlWebpackPlugin({
         filename: "commands.html",
         template: "./src/commands/commands.html",
